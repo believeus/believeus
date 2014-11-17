@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="cn.believeus.model.Tuser" table="TUser" catalog="believeusdb">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="native" />
+        </id>
+        <property name="nickName" type="java.lang.String">
+            <column name="nickName" length="10">
+                <comment>用户名</comment>
+            </column>
+        </property>
+        <property name="email" type="java.lang.String">
+            <column name="email" length="25" not-null="true" unique="true">
+                <comment>email</comment>
+            </column>
+        </property>
+        <property name="password" type="java.lang.String">
+            <column name="password" length="32">
+                <comment>密码</comment>
+            </column>
+        </property>
+        <property name="headImg" type="java.lang.String">
+        	<column name="headImg" length="100">
+        		<comment>用户头像</comment>
+        	</column>
+        </property>
+        <property name="sex" type="java.lang.String">
+            <column name="sex" length="2">
+                <comment>性别</comment>
+            </column>
+        </property>
+        <property name="lastLoginTime" type="java.lang.Long">
+            <column name="lastLoginTime">
+                <comment>上次登录时间</comment>
+            </column>
+        </property>
+        <property name="regTime" type="java.lang.Long">
+            <column name="regTime">
+                <comment>注册时间</comment>
+            </column>
+        </property>
+        <property name="photoNum" type="java.lang.String">
+            <column name="photoNum">
+                <comment>电话号码</comment>
+            </column>
+        </property>
+         <property name="address" type="java.lang.String">
+            <column name="address">
+                <comment>住址</comment>
+            </column>
+        </property>
+        <property name="status" type="java.lang.Short">
+            <column name="status">
+                <comment>0正常,1封禁,2推荐</comment>
+            </column>
+        </property>
+        <property name="adminEditDate" type="java.lang.Long">
+            <column name="adminEditDate">
+                <comment>管理员编辑时间</comment>
+            </column>
+        </property>
+        <!--用户和医生之间的关系是多对多 -->
+		<set name="doctors" table="t_user_doctor"  cascade="all" outer-join="false" lazy="true">
+            <!-- 此uid必须要在TUser表中存在 -->
+            <key column="fk_userId"/>
+            <many-to-many class="cn.believeus.model.TDoctor" column="fk_doctorId"/>
+            <!-- 双向的一对多等于多对多 -->
+			<!-- 对对多解释  多个did对应的是t_user_doctor表中的一个uid,这个did指向的是TUser这张表 -->
+			<!-- 即：多个TDoctor对应一个TUser -->
+        </set>
+        <!-- 一对多 -->
+         <!-- Begin Name:wuqiwei Date:2013-08-28 AddReason:配置inverse="false"由主表控制以减少sql语句的生成 -->
+        <set name="sickCases" inverse="false" lazy="true">
+         <!-- Begin Name:wuqiwei Date:2013-08-28 AddReason:配置inverse="false"由主表控制以减少sql语句的生成 -->
+        	<key column="fk_userId"/>
+        	<one-to-many class="cn.believeus.model.SickCase"/>
+        </set>
+        <set name="bowens" inverse="false" lazy="true">
+        	<key column="fk_userId"/>
+        	<one-to-many class="cn.believeus.model.Tbowen"/>
+        </set>
+    </class>
+</hibernate-mapping>

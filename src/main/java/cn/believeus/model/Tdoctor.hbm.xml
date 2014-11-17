@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cn.believeus.model.TDoctor" table="TDoctor" catalog="believeusdb">
+		<id name="id" type="java.lang.Integer">
+			<column name="id" />
+			<generator class="native" />
+		</id>
+		<property name="licenceID" type="java.lang.String">
+			<column name="licenceID">
+				<comment>行医资格证号码</comment>
+			</column>
+		</property>
+		<property name="name" type="java.lang.String">
+			<column name="name" length="20" />
+		</property>
+		<property name="email" type="java.lang.String">
+			<column name="email" />
+		</property>
+		<property name="password" type="java.lang.String">
+			<column name="password" />
+		</property>
+		<property name="sex" type="java.lang.Short">
+			<column name="sex">
+				<comment>0:女 1:男</comment>
+			</column>
+		</property>
+		<property name="status" type="java.lang.Short">
+			<column name="status">
+				<comment>0正常 1:封禁 2:推荐</comment>
+			</column>
+		</property>
+		<property name="address" type="java.lang.String">
+			<column name="address">
+				<comment>诊所地址</comment>
+			</column>
+		</property>
+		<property name="imgHead" type="java.lang.String">
+			<column name="imgHead">
+				<comment>医生头像</comment>
+			</column>
+		</property>
+		<property name="regDate" type="java.lang.Long">
+			<column name="regDate">
+				<comment>注册时间</comment>
+			</column>
+		</property>
+		<property name="loginDate" type="java.lang.Long">
+			<column name="loginDate">
+				<comment>登录时间</comment>
+			</column>
+		</property>
+		<property name="photoNum" type="java.lang.String">
+			<column name="photoNum">
+				<comment>电话号码</comment>
+			</column>
+		</property>
+		<property name="introduction" type="java.lang.String">
+			<column name="introduction">
+				<comment>自我介绍</comment>
+			</column>
+		</property>
+		<!-- 一个医生多个医案 -->
+		<set name="cases" >
+			<!--会在医案那头生成一个fk_doctorId列  -->
+			<key column="fk_doctorId"/>
+			<one-to-many class="cn.believeus.model.TCases"/>
+		</set>
+		<!-- 医生和用户之间的关系是多对多 -->
+		<set name="users" table="t_user_doctor" cascade="all" outer-join="false">
+			<!-- 此did必须要在TDoctor表中存在 -->
+            <key column="fk_doctorId"/>
+            <many-to-many class="cn.believeus.model.Tuser" column="fk_userId"/>
+        </set>
+        <!-- 双向的一对多等于多对多 -->
+		<!-- 对对多解释  多个fk_userId对应的是t_user_doctor表中的一个did,这个did指向的是TDoctor这张表 -->
+		<!-- 即：多个TUser对应一个TDoctor -->
+		
+		<!-- 医生和医生等级的关系是一对一的关系 -->
+		<many-to-one name="drLevel" class="cn.believeus.model.DrLevel" unique="true" cascade="all" fetch="join"  />
+		
+		 
+		 <!-- 多个病例对应一个医生 -->
+		 <!-- Begin Name:wuqiwei Date:2013-08-28 AddReason:配置inverse="false"由主表控制以减少sql语句的生成 -->
+		 <set name="SickCases" inverse="false">
+		  <!-- Begin Name:wuqiwei Date:2013-08-28 AddReason:配置inverse="false"由主表控制以减少sql语句的生成 -->
+		 	<key column="fk_doctorId"/>
+		 	<one-to-many class="cn.believeus.model.SickCase"/>
+		 </set> 
+		 <!--Begin Name:wuqiwei Date:2013-10-2 AddReason:医生可以写多个bowen  -->
+		 <set name="bowens" inverse="false">
+		 	<key column="fk_doctorId"/>
+		 	<one-to-many class="cn.believeus.model.Tbowen"/>
+		 </set>
+		 <!--End Name:wuqiwei Date:2013-10-2 AddReason:医生可以写多个bowen  -->
+	</class>
+</hibernate-mapping>

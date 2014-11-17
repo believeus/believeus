@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<urlrewrite>
+	<!-- 该配置文件的重写url的正则必须有一个写在后面，这可能是个bug 例如 logout-uid-([0-9]+).html -->
+	<!-- login and register 页面重写URL地址,实现伪静态页面跳转 -->
+	<!-- begin Name:wuqiwei Data:2013-319 Email:1058633117@qq.com AddReason: 
+		主页面使用index.do的请求实现MVC的效果 -->
+	<rule>
+		<from>index.html</from>
+		<to>/index.do?act=index</to>
+	</rule>
+	<rule>
+		<from>videoList.html</from>
+		<to>/videoList.do?act=videoList</to>
+	</rule>
+	<!-- end Name:wuqiwei Data:2013-319 Email:1058633117@qq.com AddReason: 主页面使用index.do的请求实现MVC的效果 -->
+	<rule>
+		<from>/login.html</from>
+		<to>%{context-path}/login.do?act=loginCheck</to>
+	</rule>
+	<rule>
+		<from>/logout-uid-([0-9]+).html</from>
+		<to>/logout.do?act=logout&amp;uid=$1</to>
+	</rule>
+	<!-- 注册页面的地址重写 -->
+	<rule>
+		<from>/register.html</from>
+		<to>/register.do?act=addStudent</to>
+	</rule>
+	<rule>
+	    <from>/submitApplyAdmin-uid-([0-9]+).html</from>
+	    <to>/submitApplyAdmin.do?act=submitApplyAdmin&amp;uid=$1</to>
+	</rule>
+	<rule>
+		<from>/checkinfo.html</from>
+		<to>/checkUser.do?act=ajaxCheckUserByEmail</to>
+	</rule>
+	<!-- 验证码检测 -->
+	<rule>
+		<from>/checkCode.html</from>
+		<to>/checkCode.do?act=ajaxCheckValidateCode</to>
+	</rule>
+	<rule>
+		<from>/sendMail.html</from>
+		<to>/sendMail.do</to>
+	</rule>
+	<rule>
+		<from>/adminSummary.html</from>
+		<to>/adminSummary.do?act=summaryIndex</to>
+	</rule>
+	<rule>
+		<from>/adminLogout.html</from>
+		<to>/adminLogout.do?act=adminLogout</to>
+	</rule>
+	<!-- Begin:for bowen url -->
+	<rule>
+		<from>/bowen.html</from>
+		<to>/bowen.do?act=bowenIndex</to>
+	</rule>
+	<rule>
+		<!--bowenList-pageId-2.html -->
+		<from>/bowenAjax-pageId-([0-9]+).html</from>
+		<to>/bowenAjax.do?pageId=$1&amp;act=bowenAjaxList</to>
+	</rule>
+
+	<rule>
+		<from>/bowenDetail-bid-([0-9]+).html</from>
+		<to>/bowenDetail.do?bid=$1&amp;act=bowenDetail</to>
+	</rule>
+	<rule>
+		<from>/adminBowen.html</from>
+		<to>/adminBowen.do?act=adminBowen</to>
+	</rule>
+
+	<rule>
+		<from>/adminBowenList.html</from>
+		<to>/adminBowenList.do?act=bowenList</to>
+	</rule>
+	<rule>
+		<from>/admin.html</from>
+		<to>/adminIndex.do?act=adminIndex</to>
+	</rule>
+	<rule>
+		<from>/adminManage.html</from>
+		<to>/adminManage.do?act=manageIndex</to>
+	</rule>
+	<rule>
+		<from>/adminWelcom.html</from>
+		<to>/adminWelcom.do?act=welcomeIndex</to>
+	</rule>
+	<rule>
+		<from>/adminBowenList.html</from>
+		<to>/adminBowenList.do?act=bowenList</to>
+	</rule>
+	<!-- begin Name:wuqiwei Date:2013-4-13 博文列表的分页跳转 -->
+	<!-- http://www.believeus.cn/adminBowenJokeList-pageId-2.html -->
+	<rule>
+		<from>/adminBowenList-pageId-([0-9]+).html</from>
+		<to>/adminBowenList.do?act=ajaxBowenList&amp;pageId=$1</to>
+	</rule>
+	<!-- end Name:wuqiwei Date:2013-4-13 博文列表的分页跳转 -->
+
+	<rule>
+		<from>/adminBowenEdit-Jid-([0-9]+).html</from>
+		<to>/adminSaveEditBowenView.do?act=bowenEditView&amp;Jid=$1</to>
+	</rule>
+	<rule>
+		<from>/adminBowenDetail-Jid-([0-9]+).html</from>
+		<to>/adminBowenDetail.do?act=bowenDetail&amp;jId=$1</to>
+	</rule>
+	<rule>
+		<from>/adminDeleteBowen-Jid-([0-9]+)-currPage-([0-9]+).html</from>
+		<to>/adminDeleteBowen.do?act=deleteBowen&amp;Jid=$1&amp;currentPage=$2</to>
+	</rule>
+	<!-- Begin : bowen 的新建视图和新建action -->
+	<rule>
+		<from>/adminNewBowenView.html</from>
+		<to>/adminNewBowenView.do?act=saveNewBowenView</to>
+	</rule>
+	<rule>
+		<from>/adminSaveNewBowen.html</from>
+		<to>/adminSaveNewBowen.do?act=saveNewBowen</to>
+	</rule>
+	<!-- End : bowen 的新建视图和新建action -->
+
+	<!-- Begin:bowen 的编辑视图和 编辑action -->
+	<rule>
+		<from>/adminSaveEditBowenView.html</from>
+		<to>/adminSaveEditBowenView.html?act=saveEditBowenView</to>
+	</rule>
+	<rule>
+		<from>/adminSaveEditBowen.html</from>
+		<to>/adminSaveEditBowen.do?act=saveEditBowen</to>
+	</rule>
+	<!-- Begin:bowen 的编辑视图和 编辑action -->
+
+	<!-- End for bowen url -->
+
+	<!-- 后台用户管理 -->
+	<rule>
+		<from>/adminUser.html</from>
+		<to>/adminUser.do?act=adminUser</to>
+	</rule>
+	<!-- begin Name:wuqiwei Date:2013-4-13 bowen列表的分页跳转 -->
+	<!-- http://www.believeus.cn/adminBowenJokeList-pageId-2.html -->
+	<rule>
+		<from>/adminUser-pageId-([0-9]+).html</from>
+		<to>/adminUser.do?act=adminUser&amp;currentPage=$1</to>
+	</rule>
+	<rule>
+	    <from>/adminApply-uid-([0-9]+).html</from>
+	    <to>/adminApply.do?act=adminApply&amp;uid=$1</to>
+	</rule>
+	<!-- end Name:wuqiwei Date:2013-4-13 bowen列表的分页跳转 -->
+	<rule>
+		<from>/adminViewUser-uid-([0-9]+).html</from>
+		<to>/adminViewUser.do?act=userInfo&amp;uid=$1</to>
+	</rule>
+	<rule>
+		<from>/adminMail.html</from>
+		<to>/adminMail.do?act=mail</to>
+	</rule>
+	<rule>
+		<from>/adminDeleteUser-uid-([0-9]+)-currentPage=([0-9]+).html</from>
+		<to>/adminDeleteUser.do?act=deleteUser&amp;uid=$1&amp;currentPage=$2</to>
+	</rule>
+	<rule>
+		<from>/adminUserStatus.html</from>
+		<to>/adminUserStatus.do?act=changeUserStatus</to>
+	</rule>
+	<rule>
+		<from>/adminBatchProcessDelect-uid-([0-9,]+).html</from>
+		<to>/adminBatchProcessDelect.do?act=batchProcessDelect&amp;uid=$1</to>
+	</rule>
+	<rule>
+		<from>/adminBatchProcessNormal.html</from>
+		<to>/adminBatchProcessNormal.do?act=batchProcessuseNormal</to>
+	</rule>
+	<rule>
+		<from>/adminBatchProcessBan.html</from>
+		<to>/adminBatchProcessBan.do?act=batchProcessuseBan</to>
+	</rule>
+	<rule>
+		<from>/adminSearchUser.html</from>
+		<to>/adminSearchUser.do?act=SearchUser</to>
+	</rule>
+	<rule>
+		<from>/adminAccurateSearchUser.html</from>
+		<to>/adminAccurateSearchUser.do?act=accurateSearchUser</to>
+	</rule>
+	<!-- 后台用户管理 -->
+
+
+</urlrewrite>

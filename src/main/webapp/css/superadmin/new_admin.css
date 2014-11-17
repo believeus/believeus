@@ -1,0 +1,106 @@
+@charset "utf-8";
+/* CSS Document */
+html{_overflow-x:hidden}
+body{ margin:0; padding:0; width:100%; font-family:"宋体";}
+ul,li{ margin:0; padding:0; list-style:none}
+h1,h2,h3,h4,h5,form{ margin:0; padding:0}
+h1{ font-size:24px; margin:0 auto;font-family:"微软雅黑"; line-height:50px; font-weight:normal}
+a{ text-decoration:none}
+a img{ border:none}
+a:hover{ text-decoration:none;}
+.l{ float:left}
+.r{ float:right}
+.juedui{ position:absolute}
+.xiangdui{ position:relative}
+.clear{ clear:both}
+
+.org_header{ width:100%; clear:both; height:80px; background:url(/images/superadmin/collegebg.gif) top right no-repeat #fff; border-bottom:3px solid #6699cc;}
+.top_menu{ width:auto; height:auto;bottom:0px; right:50px;}
+.top_menu li{ width:auto; height:30px; float:left; margin-right:20px; line-height:30px; text-align:center;}
+.top_menu li a{width:auto;  padding:0 30px 0 30px;height:30px; display:inline-block;background:url(/images/superadmin/topmenubg.gif) top left no-repeat #6699cc;font-size:14px; font-weight:bold; color:#fff}
+.top_menu li.on a,.top_menu li a:hover{background:url(/images/superadmin/topmenubg2.gif) top left no-repeat #ffa92f;}
+.usr_info{ width:auto; margin-right:30px; margin-top:10px; font-size:12px; color:#666}
+.usr_info a{ color:#039}
+.control{ width:70px; position:absolute; top:100px; right:30px; text-align:center}
+.control a{ width:25px; height:25px; line-height:25px; text-align:center; background:#ccc; font-family:Arial, Helvetica, sans-serif; font-weight:bold; color:#fff; cursor:pointer; margin-left:10px; overflow:hidden; float:left}
+
+.org_leftbar{ width:200px; float:left; background:#6699cc; overflow-y:auto}
+/*.org_main{ float:right; background:#fff; }*/
+.org_main{ width:100%; clear:both; background:#fff;}
+.org_map{ width:auto; font-size:12px;color:#666; margin-top:50px}
+.org_map a{ color:#039}
+
+.left_menu{ width:100%; font-size:14px; font-weight:bold; margin-top:20px;}
+.left_menu li{ height:30px; line-height:30px;text-align:center;  border-bottom:1px solid #FFF}
+.left_menu li a{ background:url(/images/superadmin/lmenubg01.gif) top left repeat-x; width:100%; height:30px; display:inline-block;color:#FFF}
+.left_menu li.on a,.left_menu li a:hover{background:url(/images/superadmin/topmenubg2.gif) top left repeat-x;}
+
+table.tableborder{ width:98%; margin:0 auto; font-size:12px; color:#333;margin-top:10px; overflow:hidden}
+table.tableborder tr.header{ line-height: 30px; background:#ECF4FF; text-indent:1em }
+table.tableborder tr.header a{ font-size:14px; text-decoration:underline; margin-right:10px}
+table.tableborder tr.header b{ color:#F00}
+table.tableborder th{ line-height:30px; text-align:center; color:#F60}
+table.tableborder th span{ cursor:pointer;padding-right:10px; background:url(/images/superadmin/jt.gif) bottom right no-repeat}
+table.tableborder th span.jt1{ padding-right:10px; background:url(/images/superadmin/jt.gif) top right no-repeat}
+table.tableborder td{ line-height:30px; text-align:center; border-bottom:1px solid #ECF4FF; padding:5px 0 5px 0}
+table.tableborder td a{ color:#039}
+table.tableborder td em{ color:#F00; font-style:normal}
+
+#opsform{ width:auto; float:left; text-align:left}
+#opsform input[type="button"],#opsform input[type="submit"],#alertform input[type="submit"],#alertform input[type="button"],#alertform input[type="reset"],.rettr input[type="button"],#abForm input[type="submit"],#abForm input[type="reset"]{ background:#DDEFFF; color:#039; padding:3px 10px 3px 10px; border:none; font-size:12px; cursor:pointer}
+#alertform{ display:inline-block}
+#alertform input[type="text"],#abForm input[type="text"]{ border:1px solid #69C; width:100px}
+
+#PageNum{ float:right}
+#PageNum .pagebox span{float:left}
+#PageNum{line-height:22px;height:22px;zoom:1;}
+#PageNum .pagebox span{color:#999;}div.PageNum .pagebox a{color:#039;}
+#PageNum .pagebox span a{padding:1px 4px;margin:0 2px; color:#039;border:1px solid #c7c7c7;background: #fff;}
+#PageNum .pagebox span a:hover{color:#111!important;font-weight:bold;background: #efefef;}
+#PageNum .pagebox span.Current{padding:1px 4px;color:#f50000!important;font-weight:bold;border:none;}
+#PageNum .pagebox span.NextPage a{width:46px;height:15px;border:none;vertical-align: middle;color:#00A0C6;}
+#PageNum .pagebox span.PrePage a{width:46px;height:15px;border:none;vertical-align: middle;color:#00A0C6;}
+#PageNum .pagebox .JumpNum input{margin:0 2px;font-size:10px;font-family:Verdana;border:1px #a8a8a8 solid;width:20px;height:11px;}
+#PageNum .pagebox input.Send{font-size:12px;}
+
+.popupwrap { display:none; position:absolute; padding:10px; border:none; background:#7ecef4; text-align:left; z-index:1000;filter:alpha(opacity=90); -moz-opacity:0.9; opacity:0.9;}
+.popup { padding:10px; border:1px solid #00a0e9; background:#e4effd;}
+.popup h4 { color:#CC6600; border-bottom:1px solid #00a0e9; line-height:24px;}
+.popup p { margin:5px 0; color:#000;}
+.popup p.operation { text-align:right;}
+#univlist { position:absolute; width:800px; z-index:1000;}
+#univlist_provinces { border:none;}
+#univlist_provinces td { vertical-align:middle; color:#0068b7; text-align:center; font-size:13px;}
+#univlist_provinces td a{ color:#0068b7;}
+#univlist_provinces a { display:block; text-decoration:none;}
+#univlist_provinces td.activetab a { background:#00a0e9; color:#fff;}
+#univlist_provinces:after { content:"."; display:block; height:0; clear:both; visibility:hidden;}
+#univlist_provinces { *zoom:1;}
+#univlist .operation a { margin-right:180px;}
+
+.u_list{ width:98%; height:auto; border:1px solid #69C; background:#fff; margin:0 auto; height:360px; overflow-x:hidden; overflow-y:auto;font-size:13px; padding:0; }
+.u_list ul{ margin:0; padding:0; text-indent:0px;}
+.u_list ul li{width:100%; clear:both;text-align:left; line-height:24px; clear:both; border-bottom:1px solid #ddd;list-style-type: none;}
+.u_list ul li .citys{ float:left; width:10%; height:auto; text-align:center; color:#F00}
+.u_list ul li .c_u_list{ float:left; width:89%; height:auto; text-align:left}
+.u_list ul li .c_u_list a{display:inline-block; padding:0 4px 0 4px; line-height:20px; height:20px;color:#0068b7;width:30%;}
+.u_list ul li .c_u_list a.u_on{ background:#999; color:#fff}
+.u_btn{ padding:2px 5px 2px 5px; border:none; background:#039; color:#fff; margin-top:5px}
+
+#orgleftnav ul{ width:98%; margin:0 auto; text-align:left}
+#orgleftnav ul li{ line-height:32px; font-size:14px; color:#FFF;}
+#orgleftnav ul li a{ color:#FFF;}
+#orgleftnav ul li a:hover{ text-decoration:none}
+#orgleftnav ul li span{ color:#FFC}
+#orgleftnav ul li p{width:90%; margin:0 auto;font-size:14px; line-height:30px;}
+#orgleftnav ul li p a{ color:#FFC}
+
+.pic_preview{ width:80px; height:auto}
+
+.adminformbox{ width:85%; margin:0 auto; margin-top:10px;padding:10px 30px 10px 30px; border:3px solid #eee; }
+.adminformbox form{ line-height:40px; font-size:14px; color:#666; text-align:left;}
+.adminformbox label{ font-weight:bold; color:#666;}
+.adminformbox input[type="button"],.adminformbox input[type="submit"],.adminformbox input[type="reset"]{ background:#DDEFFF; color:#039; padding:5px 15px 5px 15px; border:none; font-size:12px; cursor:pointer; border:1px solid #A2D0FF}
+h3.adminh3{ width:85%; margin:0 auto; text-align:left; font-size:26px; color:#999; font-family:"微软雅黑"; margin-top:10px; margin-bottom:10px; line-height:30px; font-weight:normal;}
+
+.btn{background:#DDEFFF; color:#039; padding:3px 10px 3px 10px; border:none; font-size:12px; cursor:pointer}

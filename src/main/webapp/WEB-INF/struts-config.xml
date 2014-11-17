@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN" "http://struts.apache.org/dtds/struts-config_1_2.dtd">
+<struts-config>
+	<form-beans>
+		<form-bean name="studentCommonForm" type="cn.believeus.form.StudentCommonForm"/>
+		<form-bean name="tAdminLoginForm" type="cn.believeus.form.TAdminLoginForm" />
+	</form-beans>
+
+	<global-forwards>
+		<forward name="error" path="/exception/error_404.jsp" redirect="true"/>
+		<forward name="repeat" path="/exception/repeat.jsp"/>
+		<forward name="index" path="/index.jsp"/>
+		<forward name="inputError" path="/exception/inputError.jsp" redirect="true"/>
+	</global-forwards>
+	<action-mappings>
+		<action path="/index" parameter="act"/>
+		<action path="/videoList" parameter="act">
+			<forward name="videoList" path="/videoList.jsp"/>
+		</action>
+		<action path="/logout" parameter="act"/>
+		<action path="/checkCode" parameter="act"/>
+		<action path="/register"  name="studentCommonForm" parameter="act"/>
+		<action path="/login" name="studentCommonForm" parameter="act"/>
+		<action path="/checkUser"  parameter="act"/>
+		<action path="/mailBack"/>
+		<action path="/submitApplyAdmin" parameter="act"/>
+		<action path="/sendMail"> 
+			<forward name="sendMailSuccess" path="/WEB-INF/sendMailSuccess.jsp"/>
+		</action>
+		<action path="/upFile">
+			<forward name="index" path="/index.jsp"/>
+		</action>
+		<action path="/loadFile">
+			<forward name="error" path="/exception/error_404.jsp" />
+			<forward name="index" path="index.jsp" />
+		</action>
+		<action path="/upload" parameter="act"/>
+		<action path="/adminSummary" parameter="act">
+			<forward name="adminSummary" path="/WEB-INF/superadmin/summary.jsp"/>
+		</action>
+		<action path="/adminLogout" parameter="act"/>
+		<action path="/bowen" parameter="act">
+			<forward name="bowenIndex" path="/jsp/bowen/bowenList.jsp"/>
+		</action>
+		<action path="/bowenAjax" parameter="act">
+			<forward name="subBowenList" path="/jsp/bowen/subBowenList.jsp"/>
+		</action>
+		<action path="/adminBowenList" parameter="act">
+			<forward name="ajaxBowenList" path="/WEB-INF/superadmin/Bowen/subBowenList.jsp"/>
+			<forward name="bowenList" path="/WEB-INF/superadmin/Bowen/bowenList.jsp"/>
+		</action>
+		<action path="/bowenDetail" parameter="act">
+			<forward name="bowenDetail" path="/jsp/bowen/bowenDetail.jsp"/>
+		</action>
+		
+		
+		<!-- begin Name:wuqiwei Date:2013-4-6 addReason:后台管理-->
+			<action path="/adminIndex" parameter="act">
+				<forward name="index" path="/WEB-INF/superadmin/login.jsp"/>
+			</action>
+			<action path="/adminManage" parameter="act">
+				<forward name="adminManage" path="/WEB-INF/superadmin/index.jsp"/>
+			</action>
+			<action path="/adminWelcom" parameter="act">
+				<forward name="adminWelcom" path="/WEB-INF/superadmin/welcome.jsp"/>
+			</action>
+			<action path="/adminBowen" parameter="act">
+				<forward name="adminBowen" path="/WEB-INF/superadmin/Bowen/index.jsp"/>
+			</action>
+			
+			<action path="/adminBowenDetail" parameter="act">
+				<forward name="bowenDetail" path="/WEB-INF/superadmin/Bowen/bowenDetail.jsp"/>
+			</action>
+			<action path="/adminDeleteBowen" parameter="act">
+				<forward name="ajaxBowenList" path="/WEB-INF/superadmin/Bowen/subBowenList.jsp"/>
+				<forward name="bowenList" path="/WEB-INF/superadmin/Bowen/subBowenList.jsp"/>
+			</action>
+			<action path="/adminSaveNewBowen" parameter="act"/>
+			<action path="/adminNewBowenView" parameter="act">
+				<forward name="bowenNewView" path="/WEB-INF/superadmin/Bowen/newBowen.jsp"/>
+			</action>
+			<action path="/adminSaveEditBowen" parameter="act"/>
+			<action path="/adminSaveEditBowenView" parameter="act">
+				<forward name="saveEditBowenView" path="/WEB-INF/superadmin/Bowen/editBowen.jsp"/>
+			</action>
+			
+			<!-- 后台用户管理 -->
+			<action path="/adminUser" name="studentCommonForm" parameter="act">
+				<forward name="index" path="/WEB-INF/superadmin/User/index.jsp"/>
+				<forward name="ajaxSubUserList" path="/WEB-INF/superadmin/User/subUserList.jsp"/>
+			</action>
+			<action path="/adminViewUser" name="studentCommonForm" parameter="act">
+				<forward name="viewUser" path="/WEB-INF/superadmin/User/viewUser.jsp"/>
+			</action>
+			<action path="/adminMail" name="studentCommonForm" parameter="act">
+				<forward name="mail" path="/WEB-INF/superadmin/User/mail.jsp"/>
+			</action> 
+			<action path="/adminDeleteUser" name="studentCommonForm" parameter="act">
+				<forward name="index" path="/WEB-INF/superadmin/User/index.jsp"/>
+				<forward name="ajaxSubUserList" path="/WEB-INF/superadmin/User/subUserList.jsp"/>
+			</action>
+			<action path="/adminApply" parameter="act"/>
+			<action path="/adminUserStatus" name="studentCommonForm" parameter="act"/>
+			<action path="/adminBatchProcessDelect" name="studentCommonForm" parameter="act"/>
+			<action path="/adminBatchProcessNormal" name="studentCommonForm" parameter="act"/>
+			<action path="/adminBatchProcessBan" name="studentCommonForm" parameter="act"/>
+			<action path="/adminSearchUser" name="studentCommonForm" parameter="act">
+				<forward name="index" path="/WEB-INF/superadmin/User/index.jsp"/>
+			</action>
+			<action path="/adminAccurateSearchUser" name="studentCommonForm" parameter="act">
+				<forward name="index" path="/WEB-INF/superadmin/User/index.jsp"/>
+			</action>
+			
+			<!-- 后台用户管理 -->
+		<!-- End Name:wuqiwei Date:2013-4-6 addReason:后台管理-->
+	</action-mappings>
+	<!-- Spring 管理整合Stucts的Action -->
+    <controller processorClass="org.springframework.web.struts.DelegatingRequestProcessor" />
+</struts-config>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd 
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd 
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd ">
+	
+	    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" 
+	    	  depends-on="lifecycleBeanPostProcessor">  
+               <property name="proxyTargetClass" value="true" />   
+       </bean>
+           <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">  
+            <property name="securityManager" ref="securityManager"/>  
+        </bean>  
+	<bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+		<property name="staticMethod" value="org.apache.shiro.SecurityUtils.setSecurityManager" />
+		<property name="arguments" ref="securityManager" />
+	</bean>
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<property name="securityManager" ref="securityManager" />
+			<!--用户未被验证都要跳转到该页面  -->
+			<property name="loginUrl" value="/admin.html" /> 
+			 <!-- 登陆成功后要跳转的连接 -->
+			<property name="successUrl" value="/adminManage.html" /> 
+		 	<!-- 未授权时要跳转的连接 -->
+			<property name="unauthorizedUrl" value="/admin.html" />
+		 	<property name="filters">
+			 <map>
+				<entry key="authc" value-ref="authenticationFilter" />
+			 </map>
+			</property>
+		    <property name="filterChainDefinitions">
+			<value>
+			<!--每个URL配置，表示匹配该URL的应用程序请求将由对应的过滤器进行验证。
+				URL可使用通配符，**代表任意子目录 -->
+				<!--访问/admin* 需要验证,需要有创建token加会进行身份认证，认证通过就是shiro的user  -->
+				/admin* = authc
+				<!--访问/adminManage.html 需要授权 当前用户已经验证并且需要有admin:member权限才能访问该页面  -->
+				/adminManage.html = perms["admin:member"]
+				<!-- 
+				          定义授权参数
+				1，数据库里存储了对admin这个用户的授权信息，可以从数据库中动态获取授权信息。
+				2，如果配置文件配置了授权信息，但是数据库没有对应的授权信息，则出现未授权错误。
+				3，配置文件可以不用进行配置，否则是起到显示作用，在与数据库对应的情况下。
+				4，在不操作数据库的情况下，要添加新增的授权信息，可在授权方法中进行添加。
+				   //动态获取所有授权信息。
+			       List<String> authorities = adminService.findAuthorities(principal.getId());
+			       authorities.add("admin:members"); //新增自定义授权信息。
+			       SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
+				   authorizationInfo.addStringPermissions(authorities);
+				5，在页面中的使用如下：
+				   <shiro:hasPermission name="admin:member">
+						<a href="#"> 通过授权的一个连接。</a>
+  				   </shiro:hasPermission>
+  				6，授权信息可以自定义。
+  				   首先是配置文件的授权信息进行授权，验证配置文件的授权信息是否正确。
+  				   不正确则跳转未授权页面，这个时候可以理解为授权信息填写错误。
+  				   正确时把授权信息放到缓存。
+  				7，当在页面上使用授权标签时，也会进行验证授权信息，如果缓存中有了这个
+  				   授权信息，则可以直接使用，不再进行验证授权的操作，减少对数据库的访问。
+				 -->
+				
+			</value>
+		</property>
+	</bean>
+	<bean id="authenticationFilter" class="cn.believeus.shiro.AuthenticationFilter" />
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="cacheManager" ref="shiroCacheManager" />
+		<property name="realm" ref="myRealm" />
+		<property name="sessionManager" ref="sessionManager" />
+	</bean>
+	<!--Begin Name:wuqiwei Date:2013-12-15 AddReason:shiro和项目使用同一个session  -->
+	<bean id="sessionManager" class="org.apache.shiro.web.session.mgt.ServletContainerSessionManager"/>
+	<!--Begin Name:wuqiwei Date:2013-12-15 AddReason:shiro和项目使用同一个session  -->
+	<bean id="shiroCacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+		<property name="cacheManager" ref="ehCacheManager" />
+	</bean>
+	<bean id="myRealm" class="cn.believeus.shiro.AuthenticationRealm">
+	    <property name="authorizationCacheName" value="authorizationCached" />
+	</bean>
+</beans>
+<!-- shiro 内置过滤器研究：
+	 1,rest:例子/admins/user/**=rest[user],根据请求的方法，相当于/admins/user/**=perms[user:method] ,
+	        其中method为post，get，delete等。
+     2,port：例子/admins/user/**=port[8081],
+             当请求的url的端口不是8081是跳转到schemal://serverName:8081?queryString,
+            其中schmal是协议http或https等，serverName是你访问的host,8081是url配置里port的端口，
+            queryString是你访问的url里的？后面的参数。
+	 3,perms：(permision 允许)例子/admins/user/**=perms[user:add:*],perms参数可以写多个，多个时必须加上引号，
+	          并且参数之间用逗号分割，例如/admins/user/**=perms["user:add:*,user:modify:*"]，
+	          当有多个参数时必须每个参数都通过才通过，想当于isPermitedAll()方法。
+	 4,roles：例子/admins/user/**=roles[admin],参数可以写多个，多个时必须加上引号，并且参数之间用逗号分割，
+	          当有多个参数时，例如/admins/user/**=roles["admin,guest"],每个参数通过才算通过，
+	          相当于hasAllRoles()方法。
+	 5,anon:例子/admins/**=anon 没有参数，表示可以匿名使用。
+	 6,authc:例如/admins/user/**=authc表示需要认证才能使用，没有参数,（登陆之后才能访问）
+	 7,authcBasic：例如/admins/user/**=authcBasic没有参数表示httpBasic认证
+	 8,ssl:例子/admins/user/**=ssl没有参数，表示安全的url请求，协议为https
+	 9,user:例如/admins/user/**=user没有参数表示必须存在用户，当登入操作时不做检查
+ 
+	这些过滤器分为两组，一组是认证过滤器，一组是授权过滤器。
+	其中anon，authcBasic，auchc，user是第一组，
+	   perms，roles，ssl，rest，port是第二组。
+ -->

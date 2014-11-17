@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context 
+    path="/"
+    antiJARLocking="true" docBase="ROOT"
+	crossContext="true" privileged="true" 
+	sessionCookiePath="/" sessionCookieDomain=".believeus.cn">
+	<!--使用数据库的session共享，缺点:不能即使的将内存中的session即时同步到数据库中  -->
+	<!-- <Manager className="org.apache.catalina.session.PersistentManager" 
+	         minIdleSwap="0"
+    		 maxIdleSwap="0"
+    		 maxActiveSession="-1"> 
+		<Store className="org.apache.catalina.session.JDBCStore" 
+               driverName="com.mysql.jdbc.Driver" 
+     		   connectionURL="jdbc:mysql://localhost:3306/believeusdb?user=believeus&amp;password=believeus!@#&amp;useUnicode=true&amp;characterEncoding=UTF-8" 
+			   sessionTable="tomcat_sessions" 
+               sessionIdCol="session_id" 
+               sessionDataCol="session_data" 
+			   sessionValidCol="valid_session" 
+               sessionMaxInactiveCol="max_inactive" 
+			   sessionLastAccessedCol="last_access" 
+               sessionAppCol="app_name" 
+               checkInterval="1"
+               debug="99" />
+	</Manager> -->
+	<!--
+		minIdleSwap="-1"：任意时间之后将内存中的session可能放入数据库
+		maxIdleSwap="-1": 任意时间之后将内存中session的数据放入数据库
+		maxidleBackup: 如果设置该值则会在这个时间内将内存中的session拷贝到数据库中一份，如果
+	                   删除数据中对应的session记录，该Session对象依然存在内存中。之后不再复制session到数据库中
+	                   不设置该值则会将session转存到数据库中，如果在session过期时间之内不使用session，内存中的session
+	                   会消失，刷新该页面，数据库中的session又会放入内存，这样就可以达到同步的效果了，
+	                   可以为session共享做准备了 -->
+	<!--     <Manager className="de.javakaffee.web.msm.MemcachedBackupSessionManager"
+		memcachedNodes="n1:memcached:11211"
+		requestUriIgnorePattern=".*\.(ico|png|gif|jpg|css|js)$"
+		transcoderFactoryClass="de.javakaffee.web.msm.JavaSerializationTranscoderFactory"
+    /> -->
+</Context>
+

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+			targetNamespace="http://webservice.believeus.cn" 
+			xmlns:tns="http://webservice.believeus.cn" 
+			elementFormDefault="qualified">
+			
+			  <!-- xmlns:tns="http://webservice.believeus.cn" 表示你需要用我这个空间的元素必须要加上tns
+			  		element才能被外界使用
+			   -->
+			<!-- Begin :Name:wuqiwei Date:2013-07-22 AddReason 只有用element声明才能被外界使用 -->
+			
+			<!-- 声明getUserByHQL是 tns:getUserByHQL类型,只有声明才能被外界使用-->
+			<xsd:element name="getUserByHQL" type="tns:getUserByHQL"/>
+			
+			<!-- 声明getUserByHQLResponse是getUserByHQLResponse类型,只有声明才能被外界使用 -->
+			<xsd:element name="getUserByHQLResponse" type="tns:getUserByHQLResponse"/>
+			
+			<!-- Begin :Name:wuqiwei Date:2013-07-22 AddReason 只有用element声明才能被外界使用 -->
+			
+			<!-- 定义一个getUserByHQL元素或者说是数据类型 -->
+			<xsd:complexType name="getUserByHQL">
+				<xsd:sequence>
+					<xsd:element name="hql" type="xsd:string"/>
+				</xsd:sequence>
+			</xsd:complexType>
+			
+			<!-- 再定义一个元素或者说是数据类型 -->
+			<xsd:complexType name="getUserByHQLResponse">
+					<!-- 返回user对象一个或者多个 -->
+					<xsd:sequence minOccurs="1" maxOccurs="unbounded">
+						<xsd:element name="user" type="tns:Tuser"/>
+					</xsd:sequence>
+			</xsd:complexType>
+			<!-- Begin Name:wuqiwei Date:2013-07-25 AddReason:如果需要返回User 必须和modle层的属性一致 -->
+			<xsd:complexType name="Tuser">
+				<xsd:sequence>
+					<xsd:element name="id" type="xsd:int"/>
+					<xsd:element name="nickName" type="xsd:string"/>
+					<xsd:element name="relName" type="xsd:string"/>
+					<xsd:element name="headImg" type="xsd:string"/>
+					<xsd:element name="email" type="xsd:string"/>
+					<xsd:element name="sex" type="xsd:string"/>
+					<xsd:element name="lastLoginTime" type="xsd:long"/>
+					<xsd:element name="loginTime" type="xsd:long"/>
+					<xsd:element name="stuLevel" type="xsd:string"/>
+					<xsd:element name="status" type="xsd:short"/>
+				</xsd:sequence>
+			</xsd:complexType>
+</xsd:schema>

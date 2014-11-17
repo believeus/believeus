@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:ws="http://jax-ws.dev.java.net/spring/core" 
+	xmlns:wss="http://jax-ws.dev.java.net/spring/servlet"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+						http://jax-ws.dev.java.net/spring/core http://jax-ws.dev.java.net/spring/core.xsd
+						http://jax-ws.dev.java.net/spring/servlet http://jax-ws.dev.java.net/spring/servlet.xsd">
+	<!-- url must same with the url pattern of StudentWsService-WSSpringServlet in web.xml -->
+	<wss:binding url="/doctor">
+		<wss:service>
+			<!-- bean的值需要加前缀 "#",studentWsService是实现类在bean容器中的名称 -->
+			<ws:service bean="#doctorWebService">
+			    <ws:handlers>
+			        <!--对传入的头信息进行验证，整合handle  -->
+          			<ref bean="authValidationHandler" />
+        		</ws:handlers>
+			</ws:service>
+		</wss:service>
+	</wss:binding>
+	
+</beans>

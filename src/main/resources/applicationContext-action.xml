@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+ xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+ xmlns:p="http://www.springframework.org/schema/p"
+ xsi:schemaLocation="http://www.springframework.org/schema/beans 
+  http://www.springframework.org/schema/beans/spring-beans.xsd
+  http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+  http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+  http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+	<!--begin Name:wuqiwei Data:2013-319 Email:1058633117@qq.com AddReason: 
+		主页面使用index.do的请求实现mvc的效果 -->
+	<bean name="/index" class="cn.believeus.action.IndexAction" />
+	<bean name="/videoList" class="cn.believeus.action.IndexAction" />
+	<bean name="/logout" class="cn.believeus.action.IndexAction"/>
+	<!--end Name:wuqiwei Data:2013-319 Email:1058633117@qq.com AddReason: 主页面使用index.do的请求实现mvc的效果 -->
+
+	<bean name="/register" class="cn.believeus.action.UserAction"/>
+	<bean name="/login" class="cn.believeus.action.UserAction"/>
+	<bean name="/checkCode" class="cn.believeus.action.UserAction"/>
+	<bean name="/checkUser" class="cn.believeus.action.UserAction"/>
+	<bean name="/submitApplyAdmin" class="cn.believeus.action.UserAction"/>
+	<bean name="/sendMail" class="cn.believeus.action.SendMailAction" />
+	<bean name="/mailBack" class="cn.believeus.action.MailBackAction" />
+	<!-- 以后所备用的类。 <bean name="/upFile" class="cn.believeus.system.common.BelieveusFileUpload" 
+		/> <bean name="/loadFile" class="cn.believeus.system.common.BelieveusFileDowbload" 
+		/> -->
+	<bean name="/upload" class="cn.believeus.action.BelieveusUploadAction" />
+	<bean name="/adminSummary" class="cn.believeus.action.AdminAction" />
+	<bean name="/bowen" class="cn.believeus.action.BowenAction"/>
+	<bean name="/adminLogout" class="cn.believeus.action.AdminAction" />
+	<bean name="/adminIndex" class="cn.believeus.action.AdminAction" />
+	<bean name="/adminWelcom" class="cn.believeus.action.AdminAction" />
+	<bean name="/adminManage" class="cn.believeus.action.AdminAction" />
+	
+	<!--Begin 使用注解注入的方式注入对象加快开发效率 -->
+	<bean name="/adminBowen" class="cn.believeus.action.AdminBowenAction"/>
+	<bean name="/adminBowenList" class="cn.believeus.action.AdminBowenAction"/>
+	<bean name="/adminNewBowenView" class="cn.believeus.action.AdminBowenAction"/>
+	<bean name="/adminBowenDetail" class="cn.believeus.action.AdminBowenAction"/>
+	<bean name="/adminDeleteBowen" class="cn.believeus.action.AdminBowenAction"/>
+	<bean name="/adminSaveNewBowen" class="cn.believeus.action.AdminBowenAction"/>
+	<bean name="/adminSaveEditBowenView" class="cn.believeus.action.AdminBowenAction"/>
+	<bean name="/adminSaveEditBowen" class="cn.believeus.action.AdminBowenAction"/>
+	<!--End 使用注解注入的方式注入对象加快开发效率 -->
+	
+	<!-- 后台用户管理 -->
+	<bean name="/adminUser" class="cn.believeus.action.AdminUserAction"/>
+	<bean name="/adminApply" class="cn.believeus.action.AdminUserAction"/>
+	<bean name="/adminViewUser" class="cn.believeus.action.AdminUserAction"/>
+	<bean name="/adminMail" class="cn.believeus.action.AdminUserAction"/>
+	<bean name="/adminDeleteUser" class="cn.believeus.action.AdminUserAction"/>
+	<bean name="/adminUserStatus" class="cn.believeus.action.AdminUserAction"/>
+	<bean name="/adminBatchProcessDelect" class="cn.believeus.action.AdminUserAction"/>
+	<bean name="/adminBatchProcessNormal" class="cn.believeus.action.AdminUserAction"/>
+	<bean name="/adminBatchProcessBan" class="cn.believeus.action.AdminUserAction"/>
+	<bean name="/adminSearchUser" class="cn.believeus.action.AdminUserAction"/>
+	<bean name="/adminAccurateSearchUser" class="cn.believeus.action.AdminUserAction"/>
+	<bean name="/bowenDetail" class="cn.believeus.action.BowenAction"/>
+	<bean name="/bowenAjax" class="cn.believeus.action.BowenAction"/>
+</beans>

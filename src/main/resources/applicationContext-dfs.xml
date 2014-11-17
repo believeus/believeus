@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	 http://www.springframework.org/schema/aop  http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+	<!-- begin Name:wuqiwei Data:2013-4-20 11:52:43 配置mencached 单独使用 -->
+	<bean id="trackerClient" class="org.csource.fastdfs.TrackerClient">
+		<constructor-arg index="0" ref="trackerGroup"/>
+	</bean>
+	<bean id="trackerGroup" class="org.csource.fastdfs.TrackerGroup">
+		<constructor-arg index="0" ref="socketAddress"/>
+	</bean>
+	<bean id="socketAddress" class="java.net.InetSocketAddress">
+		<constructor-arg index="0" value="TrackServer"/>
+		<constructor-arg index="1" value="22122"/>
+	</bean>
+</beans>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+  http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<!-- Begin Author:wuqiwei Date:2014-05-24 addReason:spring整合jbpm配置 -->
+	<!--此处已经部署好了流程定义  -->
+	<bean id="workflow1"
+		class="org.springmodules.workflow.jbpm31.definition.ProcessDefinitionFactoryBean">
+		<property name="definitionLocation" value="classpath:processdefinition/processdefinition.xml" />
+	</bean>
+
+	<!-- jBPM configuration -->
+	<bean id="jbpmConfiguration"
+		class="org.springmodules.workflow.jbpm31.LocalJbpmConfigurationFactoryBean">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="configuration" value="classpath:jbpm.cfg.xml" />
+
+		<property name="processDefinitions">
+			<list>
+				<ref bean="workflow1" />
+			</list>
+		</property>
+		<property name="createSchema" value="true" />
+		<!-- <property name="dropSchema" value="true" /> -->
+	</bean>
+
+	<!-- jBPM template -->
+	<bean id="jbpmTemplate" class="org.springmodules.workflow.jbpm31.JbpmTemplate">
+		<constructor-arg index="0" ref="jbpmConfiguration" />
+		<constructor-arg index="1" ref="workflow1" />
+	</bean>
+	
+</beans>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://www.zeroturnaround.com"
+  xsi:schemaLocation="http://www.zeroturnaround.com/alderaan/rebel-2_0.xsd">
+  <classpath>
+    <!--工程项目所在路径  -->
+    <dir name="/home/wuqiwei/program/Believeus/target/classes"/>
+    <dir name="/home/wuqiwei/program/Believeus/src/main/resources"/>
+  </classpath>
+  <web>
+    <link target="/">
+      <dir name="/home/wuqiwei/program/Believeus/src/main/webapp"/>
+    </link>
+  </web>
+</application>
+<!--在tomcat中配置
+    JAVA_OPTS="$JAVA_OPTS -noverify -javaagent:/home/wuqiwei/program/jrebel/jrebel.jar"
+ -->

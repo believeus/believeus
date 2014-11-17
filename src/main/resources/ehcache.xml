@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd" updateCheck="false" dynamicConfig="false">
+	<!-- 定义缓存内容在磁盘上的存储地 -->
+	<diskStore path="${java.io.tmpdir}/BELIEVEUS/cache" />
+	
+	<!--Begin Author:wuqiwei Date:2014-04-06 ConfigReason:需要同步哪些服务的缓存  -->
+	<cacheManagerPeerProviderFactory
+           class="net.sf.ehcache.distribution.RMICacheManagerPeerProviderFactory"
+           properties="hostName=localhost,port=40001,socketTimeoutMillis=2000,peerDiscovery=manual,
+                       rmiUrls=//192.168.1.33:40001/believeus.cn.ehcache.sickCache"/>
+    <!--End Author:wuqiwei Date:2014-04-06 ConfigReason:需要同步哪些服务的缓存  -->       
+ 	
+    <cacheManagerPeerListenerFactory
+        class="net.sf.ehcache.distribution.RMICacheManagerPeerListenerFactory"
+        properties="hostName=localhost, port=40001,socketTimeoutMillis=2000"/>
+     <!--Begin Author:wuqiwei Date:2014-04-06 ConfigReason:监控ehcached的数据状态--> 
+	<cacheManagerPeerListenerFactory  
+        class="org.terracotta.ehcachedx.monitor.probe.ProbePeerListenerFactory"  
+        properties="monitorAddress=localhost, monitorPort=9889" />
+    <!--End Author:wuqiwei Date:2014-04-06 ConfigReason:监控ehcached的数据状态-->
+	    <!-- 
+        配置自定义缓存
+        maxElementsInMemory：缓存中允许创建的最大对象数
+        eternal：缓存中对象是否为永久的，如果是，超时设置将被忽略，对象从不过期。
+        timeToIdleSeconds：该对象没有被访问如果超过该时间,清除该对象,如果该值是 0 就意味着元素可以保留在内存无穷长的时间。
+        timeToLiveSeconds：不论这个对象有没有被访问,超过该时间对象会被清除.这只能在元素不是永久驻留时有效，如果该值是0就意味着元素可以停顿无穷长的时间。
+        overflowToDisk：内存不足时，是否启用磁盘缓存。
+        memoryStoreEvictionPolicy：缓存满了之后的淘汰算法。
+        缓存对象清除策略。有三种：
+		1 FIFO ，first in first out ，这个是大家最熟的，先进先出，不多讲了
+		2 LFU ， Less Frequently Used ，就是上面例子中使用的策略，直白一点就是讲一直以来最少被使用的。
+		如上面所讲，缓存的元素有一个hit 属性，hit 值最小的将会被清出缓存。
+    	-->
+	<defaultCache maxElementsInMemory="10000" 
+		eternal="false" 
+		timeToIdleSeconds="1000"  
+		timeToLiveSeconds="1000" 
+		overflowToDisk="true"  
+        memoryStoreEvictionPolicy="LRU"/>
+        
+    <!-- Begin Name:wuqiwei Date:2013-10-2:AddReason:缓存首页面 60秒-->    
+    <cache name="indexPageCache" maxElementsInMemory="500" timeToIdleSeconds="3600" timeToLiveSeconds="86400" eternal="false" overflowToDisk="true" />
+    <!-- Begin Name:wuqiwei Date:2013-10-2:AddReason:缓存首页面 秒-->
+    <cache name="believeus.cn.ehcache.sickCache" 
+           maxElementsInMemory="500" 
+           timeToIdleSeconds="3600" 
+           timeToLiveSeconds="86400" 
+           eternal="false" 
+           overflowToDisk="true">
+           <cacheEventListenerFactory 
+           class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"
+           properties="replicateAsynchronously=true,replicatePuts=true, replicateUpdates=true, replicateUpdatesViaCopy=false, replicateRemovals=true "/>
+               <!-- 用于在初始化缓存，以及自动设置 -->
+     </cache>
+     <cache name="authorizationCached" maxElementsInMemory="500" timeToIdleSeconds="3600" timeToLiveSeconds="86400" eternal="false" overflowToDisk="true" />
+</ehcache>

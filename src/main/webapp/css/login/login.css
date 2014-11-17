@@ -1,0 +1,41 @@
+@CHARSET "UTF-8";
+#fullbg {
+	position:absolute;
+    background-color:gray;
+    left:0px;
+    top:0px;
+    position:absolute;
+    z-index:4;
+    filter:alpha(opacity=60);
+    -moz-opacity:0.5;
+    -khtml-opacity:0.5;
+}
+#dialog {
+    background-color:#fff;
+    border:5px solid rgba(0,0,0, 0.4);
+    height:350px;
+    left:50%;
+    margin:-200px 0 0 -200px;
+    padding:1px;
+    position:fixed !important; /* 浮动对话框 */
+    position:absolute;
+    top:50%;
+    width:450px;
+    z-index:10;
+    border-radius:5px;
+    display:none;
+}
+#dialog p {
+    margin:0 0 12px;
+    height:24px;
+    line-height:24px;
+    background:#CCCCCC;
+}
+#dialog p.close {
+    text-align:right;
+    padding-right:10px;
+}
+#dialog p.close a {
+    color:#fff;
+    text-decoration:none;
+}
